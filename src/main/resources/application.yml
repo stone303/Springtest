@@ -1,0 +1,48 @@
+person:
+  lastName: 张三
+  age: 18
+  boss: false
+  birth: 1990/12/12
+  maps: { k1: v1,k2: 12 }
+  lists:
+    ‐ lisi
+    ‐ zhaoliu
+  dog:
+    name: 迪迪
+    age: 5
+
+
+# 连接数据库的配置，url情况根据具体报错来设定，serverTimezone=UTC解决时间报错问题，allowPublicKeyRetrieval=true解决登陆问题
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.247.6:3306/mall?characterEncoding=utf-8&useSSL=false
+
+
+mybatis:
+  # 指定 mapper.xml 的位置
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  #扫描实体类的位置,在此处指明扫描实体类的包，在 mapper.xml 中就可以不写实体类的全路径名
+  type-aliases-package: com.example.springboot.bean
+  configuration:
+    #默认开启驼峰命名法，可以不用设置该属性
+    map-underscore-to-camel-case: true
+
+logging:
+  pattern:  #日志输出格式
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %F %M %5p %-40.40logger{39} %L -> %m%n"
+  level:
+    #  不同目录下的日志可配置不同级别  日志级别总共有TRACE < DEBUG < INFO < WARN < ERROR < FATAL ，且级别是逐渐提供，如果日志级别设置为INFO，则意味TRACE和DEBUG级别的日志都看不到
+    root: error  #项目的所有日志
+    com.tt: debug #package级别
+  #采用相对路径方式将日志文件输出到【log/myspringboot.log】
+  file:
+    name: log/myspringboot.log
+    path: D:/uploads/mylog
+
+#默认端口号
+server.port: 8080
+#激活指定的profile
+spring.profiles.active: prod
